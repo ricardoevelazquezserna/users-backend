@@ -7,10 +7,10 @@ on:
 jobs:
   build:
     name: Build
-    uses: ./.github/templates/build.yaml
+    uses: ./.github/templates/build.template.yaml
   unit_test:
     name: Unit Test
-    uses: ./.github/templates/unit-test.yaml
+    uses: ./.github/templates/unit-test.template.yaml
   code_analysis:
     name: Code Analysis
     runs-on: ubuntu-latest
