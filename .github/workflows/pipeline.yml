@@ -1,4 +1,4 @@
-name: Build
+name: User Backend Pipeline
 on:
   workflow_dispatch:
   push:

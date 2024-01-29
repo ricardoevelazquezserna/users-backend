@@ -6,6 +6,6 @@ dotenv.config();
 @Injectable()
 export class AppService {
   getHealth(): string {
-    return `I'm Healthy and running the version ${process.env.VERSION}`;
+    return `I'm Healthy and running the version ${process.env.VERSION || 'v1'}`;
   }
 }
