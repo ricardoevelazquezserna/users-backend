@@ -7,9 +7,12 @@ on:
 jobs:
   build:
     name: Build
+    permissions: read-all
     uses: ./.github/workflows/build.template.yaml
   unit_test:
     name: Unit Test
+    permissions: read-all
+    needs: [build]
     uses: ./.github/workflows/unit-test.template.yaml
   code_analysis:
     name: Code Analysis
