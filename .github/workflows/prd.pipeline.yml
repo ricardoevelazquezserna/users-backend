@@ -1,6 +1,5 @@
 name: PRD Pipeline
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
@@ -15,24 +14,10 @@ jobs:
     needs: [build]
     uses: ./.github/workflows/unit-test.template.yaml
   code_analysis:
-    name: Code Analysis
-    runs-on: ubuntu-latest
+    name: Unit Test
     permissions: read-all
     needs: [unit_test]
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: SonarQube Analysis
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      - uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    uses: ./.github/workflows/sonarqube.template.yaml
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
