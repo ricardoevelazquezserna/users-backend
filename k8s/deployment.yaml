@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-backend-deployment
+  namespace: dev
+  labels:
+    app: users-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-backend
+  template:
+    metadata:
+      labels:
+        app: users-backend
+        engine: node
+        framework: nestjs
+    spec:
+      containers:
+        - name: backend
+          image: ricardo117/users-backend:v3
+          env:
+            - name: MONGO_CONNECTION_STRING
+              value: mongodb+srv://USER:HASHED@cluster0.fkwrr.mongodb.net/tutorial?retryWrites=true&w=majority
+            - name: CLOUD_AMQP_CONNECTION_STRING
+              value: amqps://USER:HASHED@porpoise.rmq.cloudamqp.com/USER
+            - name: VERSION
+              value: v1
+            - name: PORT
+              value: "8080"
+          ports:
+            - containerPort: 8080
